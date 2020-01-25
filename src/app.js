@@ -1,19 +1,21 @@
 import Vue from "vue";
 import App from "./App.vue";
 import Categories from "./pages/Categories.vue";
-import Home from "./pages/Home.vue";
 import VueRouter from "vue-router";
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
+// components
+import Category from "./components/Category.vue";
+
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 Vue.use(VueRouter);
+Vue.component("category", Category);
 
 const routes = [
   {
-    path: "/categories",
-    component: Categories
-  },
-  {
     path: "/",
-    component: Home
+    component: Categories
   }
 ];
 
