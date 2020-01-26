@@ -10,7 +10,7 @@ import Category from "./components/Category.vue";
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueRouter);
-Vue.component("category", Category);
+Vue.component("tawk-category", Category);
 
 const routes = [
   {
