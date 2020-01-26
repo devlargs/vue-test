@@ -1,21 +1,30 @@
 import Vue from "vue";
 import App from "./App.vue";
-import Categories from "./pages/Categories.vue";
 import VueRouter from "vue-router";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
 // components
 import Category from "./components/Category.vue";
+import Search from "./components/Search.vue";
+
+// pages
+import Articles from "./pages/Articles.vue";
+import Categories from "./pages/Categories.vue";
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueRouter);
 Vue.component("tawk-category", Category);
+Vue.component("tawk-search", Search);
 
 const routes = [
   {
     path: "/",
     component: Categories
+  },
+  {
+    path: "/category/:id",
+    component: Articles
   }
 ];
 
