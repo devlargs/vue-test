@@ -81,39 +81,44 @@ export default {
     goToHome() {
       this.$router.push("/");
     },
-    async fetchCategory() {
+    fetchCategory() {
       this.categoryLoading = true;
-      const q = await axios.get(`/api/categories`);
-      setTimeout(() => {
-        this.category = q.data
-          .filter(r => r.id === this.$route.params.id)
-          .map(h => ({
-            ...h,
-            updatedOn: moment(h.updatedOn).fromNow()
-          }))[0];
-        this.otherCategories = q.data
-          .filter(r => r.id !== this.$route.params.id)
-          .filter(q => q.enabled)
-          .map(h => ({
-            ...h,
-            updatedOn: moment(h.updatedOn).fromNow()
-          }));
-        this.otherCategoryLoading = false;
-        this.categoryLoading = false;
-      }, 500);
+      axios.get(`/api/categories`).then(q => {
+        setTimeout(() => {
+          this.category = q.data
+            .filter(r => r.id === this.$route.params.id)
+            .map(h => {
+              return Object.assign(h, {
+                updatedOn: moment(h.updatedOn).fromNow()
+              });
+            })[0];
+          this.otherCategories = q.data
+            .filter(r => r.id !== this.$route.params.id)
+            .filter(q => q.enabled)
+            .map(h => {
+              return Object.assign(h, {
+                updatedOn: moment(h.updatedOn).fromNow()
+              });
+            });
+          this.otherCategoryLoading = false;
+          this.categoryLoading = false;
+        }, 500);
+      });
     },
-    async fetchArticles() {
+    fetchArticles() {
       this.loading = true;
-      const q = await axios.get(`/api/category/${this.$route.params.id}`);
-      setTimeout(() => {
-        this.articles = q.data
-          .filter(r => r.status === "published")
-          .map(h => ({
-            ...h,
-            updatedOn: moment(h.updatedOn).format("MMM DD YYYY")
-          }));
-        this.loading = false;
-      }, 500);
+      axios.get(`/api/category/${this.$route.params.id}`).then(q => {
+        setTimeout(() => {
+          this.articles = q.data
+            .filter(r => r.status === "published")
+            .map(h => {
+              return Object.assign(h, {
+                updatedOn: moment(h.updatedOn).format("MMM DD YYYY")
+              });
+            });
+          this.loading = false;
+        }, 500);
+      });
     }
   }
 };
