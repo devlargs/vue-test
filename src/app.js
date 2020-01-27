@@ -6,6 +6,7 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 // components
 import Article from "./components/Article.vue";
 import Category from "./components/Category.vue";
+import CategoryDetail from "./components/CategoryDetail.vue";
 import Search from "./components/Search.vue";
 
 // pages
@@ -18,6 +19,7 @@ Vue.use(VueRouter);
 
 Vue.component("tawk-article", Article);
 Vue.component("tawk-category", Category);
+Vue.component("tawk-category-detail", CategoryDetail);
 Vue.component("tawk-search", Search);
 
 // routes

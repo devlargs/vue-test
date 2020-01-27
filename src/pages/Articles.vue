@@ -4,23 +4,45 @@
     <div class="articles-container mt-3">
       <div class="inner-container">
         <div class="bread-crumb">
-          <span class="all">All categories</span>
+          <span class="all" @click="goToHome">All categories</span>
           <span class="current">
             <span>
               <b-icon icon="chevron-right" />
             </span>
-            <span>Getting Started</span>
+            <span v-show="!categoryLoading">
+              {{ category.title }}
+            </span>
           </span>
         </div>
 
         <b-container class="mt-3">
           <b-row>
-            <b-col sm="4" class="padding-0"></b-col>
+            <b-col sm="4" class="padding-0">
+              <div v-show="categoryLoading" class="text-center mt-5">
+                <b-spinner
+                  variant="primary"
+                  type="grow"
+                  label="Spinning"
+                ></b-spinner>
+              </div>
+              <tawk-category-detail
+                v-show="!categoryLoading"
+                :data="category"
+              />
+            </b-col>
             <b-col sm="8" class="padding-0">
               <div v-show="loading" class="text-center mt-5">
-                <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
+                <b-spinner
+                  variant="primary"
+                  type="grow"
+                  label="Spinning"
+                ></b-spinner>
               </div>
-              <tawk-article v-for="(a, index) in articles" :key="index" :data="a" />
+              <tawk-article
+                v-for="(a, index) in articles"
+                :key="index"
+                :data="a"
+              />
             </b-col>
           </b-row>
         </b-container>
@@ -37,13 +59,33 @@ export default {
   data() {
     return {
       articles: [],
-      loading: false
+      category: {},
+      loading: false,
+      categoryLoading: false
     };
   },
   created() {
+    this.fetchCategory();
     this.fetchArticles();
   },
   methods: {
+    goToHome() {
+      this.$router.push("/");
+    },
+    async fetchCategory() {
+      this.categoryLoading = true;
+      const q = await axios.get(`/api/categories`);
+      setTimeout(() => {
+        this.category = q.data
+          .filter(r => r.id === this.$route.params.id)
+          .map(h => ({
+            ...h,
+            updatedOn: moment(h.updatedOn).fromNow()
+          }))[0];
+        this.categoryLoading = false;
+        console.log(this.category);
+      }, 500);
+    },
     async fetchArticles() {
       this.loading = true;
       const q = await axios.get(`/api/category/${this.$route.params.id}`);
