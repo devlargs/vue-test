@@ -7,7 +7,8 @@
         </h1>
         <h4 class="topic mt-2">{{ data.title }}</h4>
         <h6 class="sub-text">
-          <span class="total">{{ data.totalArticle }} Articles</span><br />
+          <span class="total">{{ data.totalArticle }} Articles</span>
+          <br />
           <span class="updated">Last updated {{ data.updatedOn }}</span>
         </h6>
       </div>

@@ -9,11 +9,7 @@
     <div v-show="!loading" class="categories-container mt-4">
       <b-container class="bv-example-row mb-3">
         <b-row cols="3">
-          <tawk-category
-            v-for="(category, index) in categories"
-            :key="index"
-            :data="category"
-          ></tawk-category>
+          <tawk-category v-for="(category, index) in categories" :key="index" :data="category" />
         </b-row>
       </b-container>
     </div>
@@ -38,17 +34,16 @@ export default {
   methods: {
     async fetchCategories() {
       this.loading = true;
-      axios.get("/api/categories").then(q => {
-        setTimeout(() => {
-          this.categories = q.data
-            .filter(r => r.enabled)
-            .map(h => ({
-              ...h,
-              updatedOn: moment(h.updatedOn).fromNow()
-            }));
-          this.loading = false;
-        }, 500);
-      });
+      const q = await axios.get("/api/categories");
+      setTimeout(() => {
+        this.categories = q.data
+          .filter(r => r.enabled)
+          .map(h => ({
+            ...h,
+            updatedOn: moment(h.updatedOn).fromNow()
+          }));
+        this.loading = false;
+      }, 500);
     }
   }
 };
