@@ -2,9 +2,11 @@
   <div class="category-card mt-3">
     <router-link :to="`/category/${data.id}`">
       <div class="inner-container">
-        <h1 class="icon">
-          <b-icon :icon="data.icon" aria-hidden="true"></b-icon>
-        </h1>
+        <!-- <h1 class="icon"> -->
+        <!-- <b-icon :icon="data.icon" aria-hidden="true"></b-icon> -->
+        <!-- </h1> -->
+        <!-- FORCED TO USE IMAGES SINCE SOME ICONS ARE NOT WORKING -->
+        <img :src="`/images/${data.icon}.png`" />
         <h4 class="topic mt-2">{{ data.title }}</h4>
         <h6 class="sub-text">
           <span class="total">{{ data.totalArticle }} Articles</span>

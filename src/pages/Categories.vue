@@ -41,7 +41,9 @@ export default {
           .map(h => ({
             ...h,
             updatedOn: moment(h.updatedOn).fromNow()
-          }));
+          }))
+          .sort((a, b) => (a.order > b.order ? 1 : b.order > a.order ? -1 : 0));
+
         this.loading = false;
       }, 500);
     }
