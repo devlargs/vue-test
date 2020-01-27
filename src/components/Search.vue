@@ -2,20 +2,27 @@
   <div class="search-container">
     <b-input-group size="lg">
       <template v-slot:append>
-        <b-button variant="success" size="lg"
+        <b-button variant="success" size="lg" disabled
           ><b-icon icon="search"></b-icon
         ></b-button>
       </template>
       <b-form-input
         placeholder="Search for answers"
         class="search-input"
+        @input="change"
       ></b-form-input>
     </b-input-group>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    change(e) {
+      this.$emit("output", e);
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

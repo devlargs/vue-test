@@ -1,6 +1,6 @@
 <template>
   <div>
-    <tawk-search />
+    <tawk-search @output="search" />
     <div class="articles-container mt-3">
       <div class="inner-container">
         <div class="bread-crumb">
@@ -11,6 +11,9 @@
             </span>
             <span v-show="!categoryLoading">
               {{ category.title }}
+            </span>
+            <span v-show="categoryLoading">
+              Loading...
             </span>
           </span>
         </div>
@@ -39,16 +42,24 @@
                 ></b-spinner>
               </div>
               <tawk-article
+                v-show="!loading && articles.length"
                 v-for="(a, index) in articles"
                 :key="index"
                 :data="a"
               />
+              <div class="text-center" v-show="!loading && !articles.length">
+                No results found
+              </div>
             </b-col>
           </b-row>
         </b-container>
       </div>
     </div>
-    <div class="articles-container" style="border-top: 1px solid lightgray">
+    <div
+      class="articles-container"
+      style="border-top: 1px solid lightgray"
+      v-show="!loading"
+    >
       <h5 class="text-center mt-5">Other categories</h5>
       <tawk-category-slider
         :loading="otherCategoryLoading"
@@ -105,7 +116,8 @@ export default {
         }, 500);
       });
     },
-    fetchArticles() {
+    fetchArticles(searchText) {
+      this.articles = [];
       this.loading = true;
       axios.get(`/api/category/${this.$route.params.id}`).then(q => {
         setTimeout(() => {
@@ -116,9 +128,17 @@ export default {
                 updatedOn: moment(h.updatedOn).format("MMM DD YYYY")
               });
             });
+          if (searchText) {
+            this.articles = this.articles.filter(r =>
+              r.title.toLowerCase().includes(searchText.toLowerCase())
+            );
+          }
           this.loading = false;
         }, 500);
       });
+    },
+    search(variable) {
+      this.fetchArticles(variable);
     }
   }
 };

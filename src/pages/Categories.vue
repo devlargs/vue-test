@@ -1,6 +1,6 @@
 <template>
   <div>
-    <tawk-search></tawk-search>
+    <tawk-search @output="search"></tawk-search>
 
     <div v-show="loading" class="text-center mt-5">
       <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
@@ -10,12 +10,16 @@
       <b-container class="bv-example-row mb-3">
         <b-row cols="3">
           <tawk-category
+            v-show="categories.length"
             v-for="(category, index) in categories"
             :key="index"
             :data="category"
           />
         </b-row>
       </b-container>
+      <div class="text-center" v-show="!categories.length">
+        No categories found!
+      </div>
     </div>
   </div>
 </template>
@@ -36,7 +40,8 @@ export default {
     this.fetchCategories();
   },
   methods: {
-    fetchCategories() {
+    fetchCategories(searchText) {
+      this.categories = [];
       this.loading = true;
       axios.get("/api/categories").then(q => {
         setTimeout(() => {
@@ -52,8 +57,17 @@ export default {
             );
 
           this.loading = false;
+          if (searchText) {
+            this.categories = this.categories.filter(f =>
+              f.title.toLowerCase().includes(searchText.toLowerCase())
+            );
+          }
         }, 500);
       });
+    },
+    search(variable) {
+      this.fetchCategories(variable);
+      console.log(variable);
     }
   }
 };

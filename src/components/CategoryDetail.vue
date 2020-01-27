@@ -46,7 +46,7 @@ export default {
     right: 18px;
     font-size: 18px;
     color: $text-gray;
-    top: 21px;
+    top: 17px;
   }
   .updated {
     color: $text-gray;
