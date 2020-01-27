@@ -48,6 +48,12 @@
         </b-container>
       </div>
     </div>
+    <div class="articles-container" style="border-top: 1px solid lightgray">
+      <tawk-category-slider
+        :loading="otherCategoryLoading"
+        :categories="otherCategories"
+      />
+    </div>
   </div>
 </template>
 
@@ -60,8 +66,10 @@ export default {
     return {
       articles: [],
       category: {},
+      otherCategories: [],
+      categoryLoading: false,
       loading: false,
-      categoryLoading: false
+      otherCategoryLoading: false
     };
   },
   created() {
@@ -82,8 +90,15 @@ export default {
             ...h,
             updatedOn: moment(h.updatedOn).fromNow()
           }))[0];
+        this.otherCategories = q.data
+          .filter(r => r.id !== this.$route.params.id)
+          .filter(q => q.enabled)
+          .map(h => ({
+            ...h,
+            updatedOn: moment(h.updatedOn).fromNow()
+          }));
+        this.otherCategoryLoading = false;
         this.categoryLoading = false;
-        console.log(this.category);
       }, 500);
     },
     async fetchArticles() {

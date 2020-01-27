@@ -8,9 +8,9 @@
       </b-col>
       <b-col cols="8" class="pl-0 pr-0">
         <p class="mb-0">
-          <span class="title">{{data.title}}</span>
+          <span class="title">{{ data.title }}</span>
           <br />
-          <span class="updated">Updated Jun 15, 2019</span>
+          <span class="updated">Updated {{ data.updatedOn }}</span>
         </p>
       </b-col>
       <b-col class="text-center pl-0 pr-0">

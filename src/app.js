@@ -2,12 +2,14 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueRouter from "vue-router";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import { VueperSlides, VueperSlide } from "vueperslides";
 
 // components
 import Article from "./components/Article.vue";
 import Category from "./components/Category.vue";
 import CategoryDetail from "./components/CategoryDetail.vue";
 import Search from "./components/Search.vue";
+import Slider from "./components/Slider.vue";
 
 // pages
 import Articles from "./pages/Articles.vue";
@@ -21,7 +23,9 @@ Vue.component("tawk-article", Article);
 Vue.component("tawk-category", Category);
 Vue.component("tawk-category-detail", CategoryDetail);
 Vue.component("tawk-search", Search);
-
+Vue.component("tawk-slides", VueperSlides);
+Vue.component("tawk-slide", VueperSlide);
+Vue.component("tawk-category-slider", Slider);
 // routes
 const routes = [
   {
