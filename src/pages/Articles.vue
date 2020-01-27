@@ -49,6 +49,7 @@
       </div>
     </div>
     <div class="articles-container" style="border-top: 1px solid lightgray">
+      <h5 class="text-center mt-5">Other categories</h5>
       <tawk-category-slider
         :loading="otherCategoryLoading"
         :categories="otherCategories"
@@ -140,6 +141,9 @@ export default {
     .padding-0 {
       padding: 0;
     }
+  }
+  h5 {
+    color: $text-gray;
   }
 }
 </style>
