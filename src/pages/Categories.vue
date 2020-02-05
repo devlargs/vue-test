@@ -6,7 +6,7 @@
       <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
     </div>
 
-    <div v-show="!loading" class="categories-container mt-4">
+    <div v-show="!loading && !searchPage" class="categories-container mt-4">
       <b-container class="bv-example-row mb-3">
         <b-row cols="3">
           <tawk-category
@@ -17,9 +17,24 @@
           />
         </b-row>
       </b-container>
-      <div class="text-center" v-show="!categories.length">
-        No categories found!
-      </div>
+      <div class="text-center" v-show="!categories.length">No categories found!</div>
+    </div>
+
+    <div v-show="searchPage" class="categories-container mt-4">
+      <p class="search-result-header">Showing results for {{searchText}}</p>
+      <b-container class="bv-example-row mb-3">
+        <b-row>
+          <div class="search-results">
+            <tawk-article
+              v-for="(result, idx) in searchResults"
+              :key="idx"
+              :data="result"
+              :searchResult="true"
+            />
+          </div>
+        </b-row>
+      </b-container>
+      <div class="text-center" v-show="!categories.length">No categories found!</div>
     </div>
   </div>
 </template>
@@ -33,7 +48,10 @@ export default {
     return {
       categories: [],
       loading: false,
-      error: false
+      error: false,
+      searchResults: [],
+      searchPage: false,
+      searchText: ""
     };
   },
   created() {
@@ -65,9 +83,23 @@ export default {
         }, 500);
       });
     },
+    fetchResults(searchText) {
+      this.searchPage = true;
+      this.searchText = searchText;
+      axios.get(`api/search/${searchText}`).then(q => {
+        this.searchResults = q.data
+          .filter(q => !q.draft)
+          .filter(q => q.title.toLowerCase().includes(searchText.toLowerCase()))
+          .map(q => {
+            return {
+              ...q,
+              content: q.content.substr(0, 50)
+            };
+          });
+      });
+    },
     search(variable) {
-      this.fetchCategories(variable);
-      console.log(variable);
+      this.fetchResults(variable);
     }
   }
 };
@@ -81,5 +113,9 @@ export default {
   width: 90vw;
   background-color: $background-white;
   padding-bottom: 10vh;
+}
+
+.search-results {
+  display: block;
 }
 </style>

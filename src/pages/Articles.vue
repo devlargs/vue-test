@@ -9,12 +9,8 @@
             <span>
               <b-icon icon="chevron-right" />
             </span>
-            <span v-show="!categoryLoading">
-              {{ category.title }}
-            </span>
-            <span v-show="categoryLoading">
-              Loading...
-            </span>
+            <span v-show="!categoryLoading">{{ category.title }}</span>
+            <span v-show="categoryLoading">Loading...</span>
           </span>
         </div>
 
@@ -22,49 +18,30 @@
           <b-row>
             <b-col sm="4" class="padding-0">
               <div v-show="categoryLoading" class="text-center mt-5">
-                <b-spinner
-                  variant="primary"
-                  type="grow"
-                  label="Spinning"
-                ></b-spinner>
+                <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
               </div>
-              <tawk-category-detail
-                v-show="!categoryLoading"
-                :data="category"
-              />
+              <tawk-category-detail v-show="!categoryLoading" :data="category" />
             </b-col>
             <b-col sm="8" class="padding-0">
               <div v-show="loading" class="text-center mt-5">
-                <b-spinner
-                  variant="primary"
-                  type="grow"
-                  label="Spinning"
-                ></b-spinner>
+                <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
               </div>
               <tawk-article
                 v-show="!loading && articles.length"
                 v-for="(a, index) in articles"
                 :key="index"
                 :data="a"
+                :searchResult="false"
               />
-              <div class="text-center" v-show="!loading && !articles.length">
-                No results found
-              </div>
+              <div class="text-center" v-show="!loading && !articles.length">No results found</div>
             </b-col>
           </b-row>
         </b-container>
       </div>
     </div>
-    <div
-      class="articles-container"
-      style="border-top: 1px solid lightgray"
-      v-show="!loading"
-    >
+    <div class="articles-container" style="border-top: 1px solid lightgray" v-show="!loading">
       <h5 class="text-center mt-5">Other categories</h5>
-      <tawk-category-slider
-        :loading="otherCategoryLoading"
-        :categories="otherCategories"
-      />
+      <tawk-category-slider :loading="otherCategoryLoading" :categories="otherCategories" />
     </div>
   </div>
 </template>

@@ -9,6 +9,7 @@ import Article from "./components/Article.vue";
 import Category from "./components/Category.vue";
 import CategoryDetail from "./components/CategoryDetail.vue";
 import Search from "./components/Search.vue";
+import SearchResult from "./components/SearchResult.vue";
 import Slider from "./components/Slider.vue";
 
 // pages
@@ -25,6 +26,7 @@ Vue.component("tawk-category-detail", CategoryDetail);
 Vue.component("tawk-search", Search);
 Vue.component("tawk-slides", VueperSlides);
 Vue.component("tawk-slide", VueperSlide);
+Vue.component("tawk-search-result", SearchResult);
 Vue.component("tawk-category-slider", Slider);
 // routes
 const routes = [

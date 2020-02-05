@@ -10,7 +10,8 @@
         <p class="mb-0">
           <span class="title">{{ data.title }}</span>
           <br />
-          <span class="updated">Updated {{ data.updatedOn }}</span>
+          <span class="updated" v-show="!searchResult">Updated {{ data.updatedOn }}</span>
+          <span class="updated" v-show="searchResult">{{ data.content }}</span>
         </p>
       </b-col>
       <b-col class="text-center pl-0 pr-0">
@@ -24,7 +25,10 @@
 
 <script>
 export default {
-  props: ["data"]
+  props: ["data", "searchResult"],
+  created() {
+    console.log(this);
+  }
 };
 </script>
 

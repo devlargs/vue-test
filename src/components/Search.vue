@@ -2,14 +2,15 @@
   <div class="search-container">
     <b-input-group size="lg">
       <template v-slot:append>
-        <b-button variant="success" size="lg" disabled
-          ><b-icon icon="search"></b-icon
-        ></b-button>
+        <b-button variant="success" size="lg" @click="trigger">
+          <b-icon icon="search"></b-icon>
+        </b-button>
       </template>
       <b-form-input
         placeholder="Search for answers"
         class="search-input"
         @input="change"
+        v-on:keyup.enter="trigger"
       ></b-form-input>
     </b-input-group>
   </div>
@@ -17,9 +18,19 @@
 
 <script>
 export default {
+  data: {
+    searchText: ""
+  },
   methods: {
     change(e) {
-      this.$emit("output", e);
+      this.searchText = e;
+    },
+    trigger() {
+      if (this.searchText) {
+        this.$emit("output", this.searchText);
+      } else {
+        alert("please enter search keywords");
+      }
     }
   }
 };
