@@ -22,19 +22,29 @@
       </div>
     </div>
 
-    <div v-show="searchPage" class="categories-container mt-4">
-      <p class="search-result-header">Showing results for {{ searchText }}</p>
+    <div v-show="searchPage" class="categories-search-container mt-4">
+      <p class="search-result-header">
+        Showing results for <i>"</i
+        ><span class="search-text">{{ searchText }}</span
+        ><i>"</i>
+      </p>
       <b-container class="bv-example-row mb-3">
-        <b-row>
-          <div class="search-results">
-            <tawk-article
-              v-for="(result, idx) in searchResults"
-              :key="idx"
-              :data="result"
-              :searchResult="true"
-            />
+        <div class="search-results">
+          <tawk-article
+            v-show="searchResults.length"
+            v-for="(result, idx) in searchResults"
+            :key="idx"
+            :data="result"
+            :searchResult="true"
+          />
+          <div v-show="!searchResults.length">
+            <img src="/images/empty-search.svg" height="300" />
+            <h4 class="mt-4"><b>No Search Results</b></h4>
+            <p class="try-again">
+              Please, try again or <span class="ticket">Submit a ticket</span>
+            </p>
           </div>
-        </b-row>
+        </div>
       </b-container>
       <div class="text-center" v-show="!categories.length">
         No categories found!
@@ -107,14 +117,32 @@ export default {
 <style lang="scss" scoped>
 @import "../scss/_variables.scss";
 
-.categories-container {
+.categories-container,
+.categories-search-container {
   margin: auto;
   width: 90vw;
   background-color: $background-white;
   padding-bottom: 10vh;
 }
 
-.search-results {
-  display: block;
+.categories-search-container {
+  text-align: center;
+  .try-again {
+    .ticket {
+      color: $green;
+    }
+  }
+  .search-results {
+    display: block;
+    width: 60%;
+    margin: auto;
+  }
+  .search-result-header {
+    padding-top: 20px;
+    .search-text {
+      color: $green;
+      font-weight: bold;
+    }
+  }
 }
 </style>
