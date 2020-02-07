@@ -7,6 +7,7 @@ import VueMoment from "vue-moment";
 
 // components
 import Article from "./components/Article.vue";
+import Breadcrumb from "./components/Breadcrumb.vue";
 import Category from "./components/Category.vue";
 import CategoryDetail from "./components/CategoryDetail.vue";
 import Search from "./components/Search.vue";
@@ -23,6 +24,7 @@ Vue.use(VueRouter);
 Vue.use(VueMoment);
 
 Vue.component("tawk-article", Article);
+Vue.component("tawk-breadcrumb", Breadcrumb);
 Vue.component("tawk-category", Category);
 Vue.component("tawk-category-detail", CategoryDetail);
 Vue.component("tawk-search", Search);

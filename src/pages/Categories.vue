@@ -23,6 +23,9 @@
     </div>
 
     <div v-show="searchPage" class="categories-search-container mt-4">
+      <div class="bread-crumb">
+        <tawk-breadcrumb title="Search results" />
+      </div>
       <p class="search-result-header">
         Showing results for <i>"</i
         ><span class="search-text">{{ searchText }}</span
@@ -126,6 +129,11 @@ export default {
 }
 
 .categories-search-container {
+  .bread-crumb {
+    text-align: left;
+    margin-left: 10px;
+    padding-top: 10px;
+  }
   text-align: center;
   .try-again {
     .ticket {
