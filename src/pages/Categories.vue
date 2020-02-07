@@ -17,11 +17,13 @@
           />
         </b-row>
       </b-container>
-      <div class="text-center" v-show="!categories.length">No categories found!</div>
+      <div class="text-center" v-show="!categories.length">
+        No categories found!
+      </div>
     </div>
 
     <div v-show="searchPage" class="categories-container mt-4">
-      <p class="search-result-header">Showing results for {{searchText}}</p>
+      <p class="search-result-header">Showing results for {{ searchText }}</p>
       <b-container class="bv-example-row mb-3">
         <b-row>
           <div class="search-results">
@@ -34,7 +36,9 @@
           </div>
         </b-row>
       </b-container>
-      <div class="text-center" v-show="!categories.length">No categories found!</div>
+      <div class="text-center" v-show="!categories.length">
+        No categories found!
+      </div>
     </div>
   </div>
 </template>
@@ -65,11 +69,6 @@ export default {
         setTimeout(() => {
           this.categories = q.data
             .filter(r => r.enabled)
-            .map(h => {
-              return Object.assign(h, {
-                updatedOn: moment(h.updatedOn).fromNow()
-              });
-            })
             .sort((a, b) =>
               a.order > b.order ? 1 : b.order > a.order ? -1 : 0
             );

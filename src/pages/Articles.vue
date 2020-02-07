@@ -18,13 +18,24 @@
           <b-row>
             <b-col sm="4" class="padding-0">
               <div v-show="categoryLoading" class="text-center mt-5">
-                <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
+                <b-spinner
+                  variant="primary"
+                  type="grow"
+                  label="Spinning"
+                ></b-spinner>
               </div>
-              <tawk-category-detail v-show="!categoryLoading" :data="category" />
+              <tawk-category-detail
+                v-show="!categoryLoading"
+                :data="category"
+              />
             </b-col>
             <b-col sm="8" class="padding-0">
               <div v-show="loading" class="text-center mt-5">
-                <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
+                <b-spinner
+                  variant="primary"
+                  type="grow"
+                  label="Spinning"
+                ></b-spinner>
               </div>
               <tawk-article
                 v-show="!loading && articles.length"
@@ -33,15 +44,24 @@
                 :data="a"
                 :searchResult="false"
               />
-              <div class="text-center" v-show="!loading && !articles.length">No results found</div>
+              <div class="text-center" v-show="!loading && !articles.length">
+                No results found
+              </div>
             </b-col>
           </b-row>
         </b-container>
       </div>
     </div>
-    <div class="articles-container" style="border-top: 1px solid lightgray" v-show="!loading">
+    <div
+      class="articles-container"
+      style="border-top: 1px solid lightgray"
+      v-show="!loading"
+    >
       <h5 class="text-center mt-5">Other categories</h5>
-      <tawk-category-slider :loading="otherCategoryLoading" :categories="otherCategories" />
+      <tawk-category-slider
+        :loading="otherCategoryLoading"
+        :categories="otherCategories"
+      />
     </div>
   </div>
 </template>
@@ -73,21 +93,10 @@ export default {
       this.categoryLoading = true;
       axios.get(`/api/categories`).then(q => {
         setTimeout(() => {
-          this.category = q.data
-            .filter(r => r.id === this.$route.params.id)
-            .map(h => {
-              return Object.assign(h, {
-                updatedOn: moment(h.updatedOn).fromNow()
-              });
-            })[0];
+          this.category = q.data.filter(r => r.id === this.$route.params.id)[0];
           this.otherCategories = q.data
             .filter(r => r.id !== this.$route.params.id)
-            .filter(q => q.enabled)
-            .map(h => {
-              return Object.assign(h, {
-                updatedOn: moment(h.updatedOn).fromNow()
-              });
-            });
+            .filter(q => q.enabled);
           this.otherCategoryLoading = false;
           this.categoryLoading = false;
         }, 500);
@@ -98,13 +107,7 @@ export default {
       this.loading = true;
       axios.get(`/api/category/${this.$route.params.id}`).then(q => {
         setTimeout(() => {
-          this.articles = q.data
-            .filter(r => r.status === "published")
-            .map(h => {
-              return Object.assign(h, {
-                updatedOn: moment(h.updatedOn).format("MMM DD YYYY")
-              });
-            });
+          this.articles = q.data.filter(r => r.status === "published");
           if (searchText) {
             this.articles = this.articles.filter(r =>
               r.title.toLowerCase().includes(searchText.toLowerCase())

@@ -3,6 +3,7 @@ import App from "./App.vue";
 import VueRouter from "vue-router";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import { VueperSlides, VueperSlide } from "vueperslides";
+import VueMoment from "vue-moment";
 
 // components
 import Article from "./components/Article.vue";
@@ -19,6 +20,7 @@ import Categories from "./pages/Categories.vue";
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueRouter);
+Vue.use(VueMoment);
 
 Vue.component("tawk-article", Article);
 Vue.component("tawk-category", Category);

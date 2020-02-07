@@ -25,6 +25,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "vue": "^2.6.11",
+    "vue-moment": "^4.1.0",
     "vueperslides": "^2.8.2"
   },
   "author": "",

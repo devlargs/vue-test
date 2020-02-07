@@ -7,7 +7,9 @@
         <h6 class="sub-text">
           <span class="total">{{ data.totalArticle }} Articles</span>
           <br />
-          <span class="updated">Last updated {{ data.updatedOn }}</span>
+          <span class="updated"
+            >Last updated {{ data.updatedOn | moment("from", "now") }}</span
+          >
         </h6>
       </div>
     </router-link>

@@ -7,7 +7,9 @@
       <h6 class="document-count">{{ data.totalArticle }}</h6>
       <img class="mt-3" :src="`/images/${data.icon}.png`" />
       <h5 class="mt-4">{{ data.title }}</h5>
-      <h6 class="updated">Updated {{ data.updatedOn }}</h6>
+      <h6 class="updated">
+        Updated {{ data.updatedOn | moment("from", "now") }}
+      </h6>
     </div>
     <div class="subdetail-container text-center">
       <h2 class="alert-circle">

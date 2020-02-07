@@ -10,7 +10,9 @@
         <p class="mb-0">
           <span class="title">{{ data.title }}</span>
           <br />
-          <span class="updated" v-show="!searchResult">Updated {{ data.updatedOn }}</span>
+          <span class="updated" v-show="!searchResult"
+            >Updated {{ data.updatedOn | moment("MMM DD YYYY") }}</span
+          >
           <span class="updated" v-show="searchResult">{{ data.content }}</span>
         </p>
       </b-col>
@@ -25,10 +27,7 @@
 
 <script>
 export default {
-  props: ["data", "searchResult"],
-  created() {
-    console.log(this);
-  }
+  props: ["data", "searchResult"]
 };
 </script>
 
