@@ -7,14 +7,13 @@
         </h3>
       </b-col>
       <b-col cols="8" class="pl-0 pr-0">
-        <p class="mb-0">
-          <span class="title">{{ data.title }}</span>
-          <br />
+        <div class="mb-0">
+          <div v-html="data.title"></div>
           <span class="updated" v-show="!searchResult"
             >Updated {{ data.updatedOn | moment("MMM DD YYYY") }}</span
           >
           <span class="updated" v-show="searchResult">{{ data.content }}</span>
-        </p>
+        </div>
       </b-col>
       <b-col class="text-center pl-0 pr-0">
         <h3 class="mt-2 icon-right">

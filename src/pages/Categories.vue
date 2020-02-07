@@ -95,6 +95,12 @@ export default {
         }, 500);
       });
     },
+    highlight(words, query) {
+      const reg = new RegExp(query, "gi");
+      return words.replace(reg, function(str) {
+        return "<b>" + str + "</b>";
+      });
+    },
     fetchResults(searchText) {
       this.searchPage = true;
       this.searchText = searchText;
@@ -102,6 +108,15 @@ export default {
         this.searchResults = q.data
           .filter(q => !q.draft)
           .filter(q => q.title.toLowerCase().includes(searchText.toLowerCase()))
+          .map(q => {
+            return {
+              ...q,
+              title: `<div style="color: #03a84e;" >${this.highlight(
+                q.title,
+                searchText
+              )}</div>`
+            };
+          })
           .map(q => {
             return {
               ...q,
